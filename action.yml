@@ -10,6 +10,7 @@ runs:
   steps:
     - name: Setup environment
       id: nbenv
+      shell: bash
       run: |
         echo "NETBEANS_VERSION=${{ inputs.version }}" >> "${GITHUB_OUTPUT}"
     - name: Cache NetBeans distribution
