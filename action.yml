@@ -27,19 +27,19 @@ runs:
     - name: Download NetBeans ${{ steps.nbenv.outputs.NETBEANS_VERSION }} ZIP distribution
       shell: bash
       run: wget -q https://archive.apache.org/dist/netbeans/netbeans/${{ steps.nbenv.outputs.NETBEANS_VERSION }}/netbeans-${{ steps.nbenv.outputs.NETBEANS_VERSION }}-bin.zip
-      if: steps.cache-netbeans.outputs.cache-hit != 'true'
+      if: ${{ steps.cache-netbeans.outputs.cache-hit != 'true' }}
     
     - name: Download NetBeans ${{ steps.nbenv.outputs.NETBEANS_VERSION }} ZIP checksum archive
       shell: bash
       run: wget -q https://archive.apache.org/dist/netbeans/netbeans/${{ steps.nbenv.outputs.NETBEANS_VERSION }}/netbeans-${{ steps.nbenv.outputs.NETBEANS_VERSION }}-bin.zip.sha512
-      if: steps.cache-netbeans.outputs.cache-hit != 'true'
+      if: ${{ steps.cache-netbeans.outputs.cache-hit != 'true' }}
 
     - name: Verify NetBeans ${{ steps.nbenv.outputs.NETBEANS_VERSION }} ZIP distribution
       shell: bash
       run: sha512sum -c netbeans-${{ steps.nbenv.outputs.NETBEANS_VERSION }}-bin.zip.sha512
-      if: steps.cache-netbeans.outputs.cache-hit != 'true'
+      if: ${{ steps.cache-netbeans.outputs.cache-hit != 'true' }}
       
     - name: Unzip Netbeans ${{ steps.nbenv.outputs.NETBEANS_VERSION }} ZIP distribution
       shell: bash
       run: unzip -q netbeans-${{ steps.nbenv.outputs.NETBEANS_VERSION }}-bin.zip
-      if: steps.cache-netbeans.outputs.cache-hit != 'true'
+      if: ${{ steps.cache-netbeans.outputs.cache-hit != 'true' }}
