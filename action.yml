@@ -1,10 +1,10 @@
 name: Setup NetBeans
 description: Download and extract a NetBeans ZIP distribution
+author: Carlos Machado
 inputs:
   version:
     description: NetBeans version
     required: true
-    default: '18'
 runs:
   using: composite
   env:
