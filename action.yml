@@ -20,7 +20,7 @@ runs:
         path: ${{ github.workspace }}/netbeans
         key: ${{ runner.os }}-netbeans-${{ steps.nbenv.outputs.NETBEANS_VERSION }}
         restore-keys: |
-          ${{ runner.os }}-netbeans-${{ env.NETBEANS_VERSION }}
+          ${{ runner.os }}-netbeans-${{ steps.nbenv.outputs.NETBEANS_VERSION }}
           ${{ runner.os }}-netbeans-
           ${{ runner.os }}-
     
