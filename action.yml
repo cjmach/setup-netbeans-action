@@ -7,32 +7,34 @@ inputs:
     required: true
 runs:
   using: composite
-  env:
-    NETBEANS_VERSION: ${{ inputs.version }}
   steps:
+    - name: Setup environment
+      id: nbenv
+      run: |
+        echo "NETBEANS_VERSION=${{ inputs.version }}" >> "${GITHUB_OUTPUT}"
     - name: Cache NetBeans distribution
       uses: actions/cache@v4
       id: cache-netbeans
       with:
         path: ${{ github.workspace }}/netbeans
-        key: ${{ runner.os }}-netbeans-${{ env.NETBEANS_VERSION }}
+        key: ${{ runner.os }}-netbeans-${{ steps.nbenv.outputs.NETBEANS_VERSION }}
         restore-keys: |
           ${{ runner.os }}-netbeans-${{ env.NETBEANS_VERSION }}
           ${{ runner.os }}-netbeans-
           ${{ runner.os }}-
     
-    - name: Download NetBeans ${{ env.NETBEANS_VERSION }} ZIP distribution
-      run: wget -q https://archive.apache.org/dist/netbeans/netbeans/${{ env.NETBEANS_VERSION }}/netbeans-${{ env.NETBEANS_VERSION }}-bin.zip
+    - name: Download NetBeans ${{ steps.nbenv.outputs.NETBEANS_VERSION }} ZIP distribution
+      run: wget -q https://archive.apache.org/dist/netbeans/netbeans/${{ steps.nbenv.outputs.NETBEANS_VERSION }}/netbeans-${{ steps.nbenv.outputs.NETBEANS_VERSION }}-bin.zip
       if: steps.cache-netbeans.outputs.cache-hit != 'true'
     
-    - name: Download NetBeans ${{ env.NETBEANS_VERSION }} ZIP checksum archive
-      run: wget -q https://archive.apache.org/dist/netbeans/netbeans/${{ env.NETBEANS_VERSION }}/netbeans-${{ env.NETBEANS_VERSION }}-bin.zip.sha512
+    - name: Download NetBeans ${{ steps.nbenv.outputs.NETBEANS_VERSION }} ZIP checksum archive
+      run: wget -q https://archive.apache.org/dist/netbeans/netbeans/${{ steps.nbenv.outputs.NETBEANS_VERSION }}/netbeans-${{ steps.nbenv.outputs.NETBEANS_VERSION }}-bin.zip.sha512
       if: steps.cache-netbeans.outputs.cache-hit != 'true'
 
-    - name: Verify NetBeans ${{ env.NETBEANS_VERSION }} ZIP distribution
-      run: sha512sum -c netbeans-${{ env.NETBEANS_VERSION }}-bin.zip.sha512
+    - name: Verify NetBeans ${{ steps.nbenv.outputs.NETBEANS_VERSION }} ZIP distribution
+      run: sha512sum -c netbeans-${{ steps.nbenv.outputs.NETBEANS_VERSION }}-bin.zip.sha512
       if: steps.cache-netbeans.outputs.cache-hit != 'true'
       
-    - name: Unzip Netbeans ${{ env.NETBEANS_VERSION }} ZIP distribution
-      run: unzip -q netbeans-${{ env.NETBEANS_VERSION }}-bin.zip
+    - name: Unzip Netbeans ${{ steps.nbenv.outputs.NETBEANS_VERSION }} ZIP distribution
+      run: unzip -q netbeans-${{ steps.nbenv.outputs.NETBEANS_VERSION }}-bin.zip
       if: steps.cache-netbeans.outputs.cache-hit != 'true'
