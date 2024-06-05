@@ -31,6 +31,7 @@ runs:
           echo "Cache hit - skipping NetBeans ZIP distribution download"
         else
           wget -q https://archive.apache.org/dist/netbeans/netbeans/${{ steps.nbenv.outputs.NETBEANS_VERSION }}/netbeans-${{ steps.nbenv.outputs.NETBEANS_VERSION }}-bin.zip
+          wget -q https://archive.apache.org/dist/netbeans/netbeans/${{ steps.nbenv.outputs.NETBEANS_VERSION }}/netbeans-${{ steps.nbenv.outputs.NETBEANS_VERSION }}-bin.zip.sha512
           sha512sum -c netbeans-${{ steps.nbenv.outputs.NETBEANS_VERSION }}-bin.zip.sha512
           unzip -q netbeans-${{ steps.nbenv.outputs.NETBEANS_VERSION }}-bin.zip
         fi
