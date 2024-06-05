@@ -28,7 +28,7 @@ steps:
       distribution: 'temurin'
 
   # Setup netbeans distribution directory on github workspace.
-  - uses: cjmach/setup-netbeans-action@v1
+  - uses: cjmach/setup-netbeans-action@v2.1
     name: Setup NetBeans distribution
     with:
       version: '18'  
