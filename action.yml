@@ -1,6 +1,9 @@
 name: Setup NetBeans
 description: Download and extract a NetBeans ZIP distribution
 author: Carlos Machado
+branding:
+  icon: download
+  color: orange
 inputs:
   version:
     description: NetBeans version
