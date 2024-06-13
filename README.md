@@ -41,3 +41,8 @@ steps:
       -Dnbplatform.default.harness.dir=${{ github.workspace }}/netbeans/harness
       build
 ```
+
+The term "default" in the NetBeans properties on the ant command line 
+represents the name of the NetBeans platform and must match the value of 
+the property `nbplatform.active` set in the file `nbproject/platform.properties`
+of your module (suite).
